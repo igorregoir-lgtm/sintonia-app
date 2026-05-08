@@ -3,6 +3,7 @@ import { Text, TextInput, View } from "react-native";
 import { insertCheckIn } from "../storage/db";
 import { Card, PrimaryButton, Screen } from "../ui/components";
 import { theme } from "../ui/theme";
+import { uuid } from "../util/uuid";
 
 export function CheckInScreen({ navigation }) {
   const [mood, setMood] = useState("3");
@@ -11,7 +12,7 @@ export function CheckInScreen({ navigation }) {
   const [notes, setNotes] = useState("");
 
   function save() {
-    const id = crypto.randomUUID();
+    const id = uuid();
     insertCheckIn({
       id,
       createdAt: new Date().toISOString(),

@@ -4,6 +4,7 @@ import { Text, View } from "react-native";
 import { insertExam } from "../storage/db";
 import { Card, PrimaryButton, Screen, SecondaryButton } from "../ui/components";
 import { theme } from "../ui/theme";
+import { uuid } from "../util/uuid";
 
 export function UploadExamScreen({ navigation }) {
   const [picked, setPicked] = useState(null);
@@ -26,7 +27,7 @@ export function UploadExamScreen({ navigation }) {
     if (!picked) return;
 
     insertExam({
-      id: crypto.randomUUID(),
+      id: uuid(),
       createdAt: new Date().toISOString(),
       kind: picked.mimeType?.includes("pdf") ? "pdf" : "image",
       sourceUri: picked.uri,

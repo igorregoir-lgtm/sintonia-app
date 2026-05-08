@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import * as SecureStore from "expo-secure-store";
 import { initDb } from "../storage/db";
+import { uuid } from "../util/uuid";
 
 const USER_ID_KEY = "sintonia.userId";
 
@@ -16,7 +17,7 @@ export function useBootstrap() {
 
         const existingUserId = await SecureStore.getItemAsync(USER_ID_KEY);
         if (!existingUserId) {
-          const newUserId = crypto.randomUUID();
+          const newUserId = uuid();
           await SecureStore.setItemAsync(USER_ID_KEY, newUserId);
         }
 

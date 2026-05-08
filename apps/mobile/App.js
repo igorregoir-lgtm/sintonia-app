@@ -9,12 +9,25 @@ import { UploadExamScreen } from "./src/screens/UploadExamScreen";
 import { ReportScreen } from "./src/screens/ReportScreen";
 import { SettingsScreen } from "./src/screens/SettingsScreen";
 import { useBootstrap } from "./src/state/bootstrap";
+import { Screen } from "./src/ui/components";
+import { theme } from "./src/ui/theme";
+import { Text } from "react-native";
 
 export default function App() {
   const boot = useBootstrap();
 
-  if (boot.status === "loading") return null;
-  if (boot.status === "error") return null;
+  if (boot.status === "loading")
+    return (
+      <Screen>
+        <Text style={{ color: theme.textMuted }}>Carregando…</Text>
+      </Screen>
+    );
+  if (boot.status === "error")
+    return (
+      <Screen>
+        <Text style={{ color: theme.textMuted }}>Erro ao iniciar o app. Veja o log do Metro.</Text>
+      </Screen>
+    );
 
   const Stack = createNativeStackNavigator();
 
