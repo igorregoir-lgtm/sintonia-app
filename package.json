@@ -1,0 +1,13 @@
+{
+  "name": "sintonia-app",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "lint": "echo \"(placeholder)\"",
+    "format": "echo \"(placeholder)\""
+  }
+}
+
