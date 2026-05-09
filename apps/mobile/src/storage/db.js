@@ -45,7 +45,8 @@ export function insertCheckIn({ id, createdAt, mood, energy, sleepQuality, notes
     "INSERT INTO checkins (id, created_at, mood, energy, sleep_quality, notes) VALUES (?, ?, ?, ?, ?, ?)"
   );
   try {
-    stmt.executeSync([id, createdAt, mood, energy, sleepQuality, notes ?? null]);
+    // expo-sqlite: bind params are variadic, not a single array
+    stmt.executeSync(id, createdAt, mood, energy, sleepQuality, notes ?? null);
   } finally {
     stmt.finalizeSync();
   }
@@ -57,7 +58,7 @@ export function listRecentCheckIns(limit = 14) {
     "SELECT id, created_at, mood, energy, sleep_quality, notes FROM checkins ORDER BY created_at DESC LIMIT ?"
   );
   try {
-    const rows = stmt.executeSync([limit]).getAllSync();
+    const rows = stmt.executeSync(limit).getAllSync();
     return rows;
   } finally {
     stmt.finalizeSync();
@@ -70,7 +71,7 @@ export function insertExam({ id, createdAt, kind, sourceUri, fileName, status })
     "INSERT INTO exams (id, created_at, kind, source_uri, file_name, status) VALUES (?, ?, ?, ?, ?, ?)"
   );
   try {
-    stmt.executeSync([id, createdAt, kind, sourceUri, fileName ?? null, status]);
+    stmt.executeSync(id, createdAt, kind, sourceUri, fileName ?? null, status);
   } finally {
     stmt.finalizeSync();
   }
@@ -82,7 +83,7 @@ export function listExams(limit = 50) {
     "SELECT id, created_at, kind, source_uri, file_name, status FROM exams ORDER BY created_at DESC LIMIT ?"
   );
   try {
-    return stmt.executeSync([limit]).getAllSync();
+    return stmt.executeSync(limit).getAllSync();
   } finally {
     stmt.finalizeSync();
   }

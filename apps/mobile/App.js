@@ -25,7 +25,14 @@ export default function App() {
   if (boot.status === "error")
     return (
       <Screen>
-        <Text style={{ color: theme.textMuted }}>Erro ao iniciar o app. Veja o log do Metro.</Text>
+        <Text style={{ color: theme.textMuted }}>
+          Erro ao iniciar o app. Veja o log do Metro.
+        </Text>
+        {boot.error ? (
+          <Text style={{ color: theme.text, marginTop: 12, fontSize: 12 }}>
+            {String(boot.error?.message ?? boot.error)}
+          </Text>
+        ) : null}
       </Screen>
     );
 
